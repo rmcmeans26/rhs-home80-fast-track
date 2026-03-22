@@ -1,3 +1,4 @@
+import logo from '../rhs_logo_fb4.jpg'
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -350,7 +351,7 @@ export default function RHSHOME80FastTrackWizard() {
                   <div className="flex items-start gap-4">
                     <div className="rounded-2xl bg-white p-3 shadow-lg">
                       <img
-                        src="/logo.jpg"
+                        src={logo}
                         alt="Residential Housing Solutions logo"
                         className="h-16 w-auto rounded-lg object-contain md:h-20"
                       />
