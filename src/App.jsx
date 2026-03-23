@@ -349,7 +349,7 @@ export default function RHSHOME80FastTrackWizard() {
                 <div className="absolute bottom-0 left-0 h-32 w-32 rounded-full bg-black/10 blur-2xl" />
                 <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                   <div className="flex items-start gap-3">
-                    <div className="rounded-xl bg-white p-2 shadow-md">
+                    <div className="rounded-lg bg-white p-2 shadow-sm">
                       <img
                         src={logo}
                         alt="Residential Housing Solutions logo"
