@@ -353,7 +353,7 @@ export default function RHSHOME80FastTrackWizard() {
                       <img
                         src={logo}
                         alt="Residential Housing Solutions logo"
-                        className="h-16 w-auto rounded-lg object-contain md:h-20"
+                        className="h-12 w-auto object-contain"
                       />
                     </div>
                     <div className="max-w-2xl">
