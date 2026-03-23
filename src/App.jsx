@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 
 const STORAGE_KEY = "rhs_home80_fasttrack_submission_ready_v1";
-
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3O24IGk7-5fj5RhqWK86XOsW9Q_7CpiO1Iob4Ehq8GglVgm1V5LzxT-_RhGjAVCADGg/exec";
 const stepsMeta = [
   { id: 1, title: "Welcome", icon: Home },
   { id: 2, title: "Buyer Info", icon: User },
@@ -266,6 +266,40 @@ export default function RHSHOME80FastTrackWizard() {
     }
   };
 
+const submitToGoogleSheet = async () => {
+  const payload = {
+    fullName: form.fullName,
+    phone: form.phone,
+    email: form.email,
+    householdSize: form.householdSize,
+    preferredArea: form.preferredArea,
+    readiness: form.readiness,
+    documents: form.documents,
+    progress: form.progress,
+    lenderName: form.lenderName,
+    loanOfficer: form.loanOfficer,
+    lenderPhone: form.lenderPhone,
+    lenderEmail: form.lenderEmail,
+  };
+
+  try {
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    setSubmitNotice("✅ Submitted to RHS successfully!");
+    setSubmitted(true);
+    setCurrentStep(5);
+  } catch (error) {
+    console.error(error);
+    setSubmitNotice("❌ Submission failed. Try again.");
+  }
+};
+
   const resetAll = () => {
     setForm(initialForm);
     setCurrentStep(0);
@@ -319,17 +353,17 @@ export default function RHSHOME80FastTrackWizard() {
     setForm((prev) => ({ ...prev, progress: { ...prev.progress, [step]: !prev.progress[step] } }));
   };
 
-  const handleSubmit = () => {
-    const valid = [1, 2, 3, 4].every((s) => validateStep(s));
-    if (!valid) {
-      setCurrentStep(1);
-      setSubmitNotice("Please complete the required items before submitting.");
-      return;
-    }
-    setSubmitted(true);
-    setCurrentStep(5);
-    setSubmitNotice("Buyer summary is ready for RHS review.");
-  };
+const handleSubmit = async () => {
+  const valid = [1, 2, 3, 4].every((s) => validateStep(s));
+
+  if (!valid) {
+    setCurrentStep(1);
+    setSubmitNotice("Please complete required sections first.");
+    return;
+  }
+
+  await submitToGoogleSheet();
+};
 
   const reviewWarnings = [
     !form.fullName && "Buyer name is missing.",
@@ -581,9 +615,12 @@ export default function RHSHOME80FastTrackWizard() {
                   Next <ChevronRight className="h-4 w-4" />
                 </button>
               ) : (
-                <button onClick={handleSubmit} className="inline-flex items-center gap-2 rounded-2xl bg-emerald-700 px-4 py-3 font-semibold text-white transition hover:opacity-95">
-                  Finish <CheckCircle2 className="h-4 w-4" />
-                </button>
+<button
+  onClick={handleSubmit}
+  className="inline-flex items-center gap-2 rounded-2xl bg-emerald-700 px-4 py-3 font-semibold text-white transition hover:opacity-95"
+>
+  Submit to RHS
+</button>
               )}
             </div>
           </div>
