@@ -413,9 +413,37 @@ const handleSubmit = async () => {
                       <button onClick={manualSave} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white/10 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/15">
                         <Save className="h-4 w-4" /> Save
                       </button>
-                      <button onClick={exportSummary} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white/10 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/15">
-                        <Download className="h-4 w-4" /> Export
-                      </button>
+                      const exportSummary = () => {
+  const lines = [
+    "RHS HOME 80 FAST TRACK SUMMARY",
+    "",
+    `Buyer: ${form.fullName || ""}`,
+    `Phone: ${form.phone || ""}`,
+    `Email: ${form.email || ""}`,
+    `Household Size: ${form.householdSize || ""}`,
+    `Preferred Area: ${form.preferredArea || ""}`,
+    "",
+    "READINESS:",
+    ...readinessItems.map((item) => `- ${item}: ${form.readiness[item] || "not answered"}`),
+    "",
+    "DOCUMENTS:",
+    ...requiredDocs.map((doc) => `- ${doc}: ${form.documents[doc] ? "checked" : "not checked"}`),
+    "",
+    "PROCESS STEPS:",
+    ...progressSteps.map((step) => `- ${step}: ${form.progress[step] ? "checked" : "not checked"}`),
+    "",
+    "LENDER:",
+    `Lender Name: ${form.lenderName || ""}`,
+    `Loan Officer: ${form.loanOfficer || ""}`,
+    `Lender Phone: ${form.lenderPhone || ""}`,
+    `Lender Email: ${form.lenderEmail || ""}`,
+  ].join("\n");
+
+  window.location.href =
+    `mailto:myresidentialhousingsolutions@gmail.com?subject=${encodeURIComponent(
+      `HOME 80 Fast Track Summary - ${form.fullName || "Buyer"}`
+    )}&body=${encodeURIComponent(lines)}`;
+};
                     </div>
                     {saveNotice ? <div className="rounded-2xl bg-white/10 px-4 py-3 text-sm text-white/90">{saveNotice}</div> : null}
                   </div>
@@ -590,9 +618,12 @@ const handleSubmit = async () => {
                         <button onClick={manualSave} className="inline-flex items-center justify-center gap-2 rounded-[22px] bg-white/10 px-5 py-3.5 text-base font-semibold text-white ring-1 ring-white/10 transition hover:bg-white/15">
                           <Save className="h-4 w-4" /> Save Progress
                         </button>
-                        <button className="inline-flex items-center justify-center gap-2 rounded-[22px] bg-white px-5 py-3.5 text-base font-semibold text-stone-900 transition hover:translate-y-[-1px]">
-                          <Send className="h-4 w-4" /> Continue to Official Application
-                        </button>
+                       <button
+  onClick={() => window.open("https://drive.google.com/file/d/1AIQKcH8EiHmJTBOxVPY2FMPEK8h9w800/view?usp=sharing", "_blank", "noopener,noreferrer")}
+  className="inline-flex items-center justify-center gap-2 rounded-[22px] bg-white px-5 py-3.5 text-base font-semibold text-stone-900 transition hover:translate-y-[-1px]"
+>
+  <Send className="h-4 w-4" /> Continue to Official Application
+</button>
                       </div>
                       {submitNotice ? <div className="rounded-[20px] bg-white/10 p-4 text-sm text-white/90 ring-1 ring-white/10">{submitNotice}</div> : null}
                     </div>
@@ -615,12 +646,9 @@ const handleSubmit = async () => {
                   Next <ChevronRight className="h-4 w-4" />
                 </button>
               ) : (
-<button
-  onClick={handleSubmit}
-  className="inline-flex items-center gap-2 rounded-2xl bg-emerald-700 px-4 py-3 font-semibold text-white transition hover:opacity-95"
->
-  Submit to RHS
-</button>
+                <button onClick={handleSubmit} className="inline-flex items-center gap-2 rounded-2xl bg-emerald-700 px-4 py-3 font-semibold text-white transition hover:opacity-95">
+                  Submit to RHS <CheckCircle2 className="h-4 w-4" />
+                </button>
               )}
             </div>
           </div>
@@ -701,11 +729,29 @@ const handleSubmit = async () => {
                   <div className="mt-4 space-y-2 text-sm leading-6 text-stone-700">
                     <p className="font-semibold">Residential Housing Solutions</p>
                     <p>Website: myrhs.net</p>
-                    <p>Use this guided tool as your shortcut, then complete the official HOME 80 application packet.</p>
+<p>Email: myresidentialhousingsolutions@gmail.com</p>
+<p>Phone: 316-393-5720</p>
+<p>Use this guided tool as your shortcut, then complete the official HOME 80 application packet.</p>
                   </div>
-                  <button className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-[22px] bg-stone-900 px-5 py-3.5 text-base font-semibold text-white shadow-lg transition hover:translate-y-[-1px] hover:opacity-95">
-                    <ClipboardList className="h-4 w-4" /> Contact RHS
-                  </button>
+                  <button
+  onClick={() => {
+    const body = [
+      `Name: ${form.fullName || ""}`,
+      `Phone: ${form.phone || ""}`,
+      `Email: ${form.email || ""}`,
+      "",
+      "I would like help with the HOME 80 Fast Track process.",
+      "",
+      "Phone: 316-393-5720",
+    ].join("\n");
+
+    window.location.href =
+      `mailto:myresidentialhousingsolutions@gmail.com?subject=${encodeURIComponent("HOME 80 Fast Track Inquiry")}&body=${encodeURIComponent(body)}`;
+  }}
+  className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-[22px] bg-stone-900 px-5 py-3.5 text-base font-semibold text-white shadow-lg transition hover:translate-y-[-1px] hover:opacity-95"
+>
+  <ClipboardList className="h-4 w-4" /> Contact RHS
+</button>
                 </div>
               </section>
             </div>
