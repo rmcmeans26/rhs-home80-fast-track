@@ -1,4 +1,4 @@
-import logo from '../rhs_logo_fb4.jpg'
+import logo from './logo.jpg'
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
