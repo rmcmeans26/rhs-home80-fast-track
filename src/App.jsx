@@ -575,11 +575,7 @@ export default function RHSHOME80FastTrackWizard() {
               transition={{ duration: 0.22 }}
             >
               {currentStep === 0 && (
-                <SectionCard
-                  title="Welcome"
-                  subtitle="This wizard is your shortcut. It is not a replacement for the official HOME 80 packet."
-                  
-                >
+                <SectionCard>
                   <div className="flex items-center justify-between gap-4 border-b border-stone-200 pb-5">
   <div>
     <div className="text-sm font-semibold text-stone-900">
