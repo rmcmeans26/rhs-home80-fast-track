@@ -578,7 +578,7 @@ export default function RHSHOME80FastTrackWizard() {
                 <SectionCard
                   title="Welcome"
                   subtitle="This wizard is your shortcut. It is not a replacement for the official HOME 80 packet."
-                  right={<StatusBadge tone="success">Start here</StatusBadge>}
+                  
                 >
                   <div className="flex justify-end border-b border-stone-200 pb-5">
   <button
