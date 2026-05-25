@@ -580,18 +580,14 @@ export default function RHSHOME80FastTrackWizard() {
                   subtitle="This wizard is your shortcut. It is not a replacement for the official HOME 80 packet."
                   right={<StatusBadge tone="success">Start here</StatusBadge>}
                 >
-                  <div className="flex items-center justify-between gap-4 border-b border-stone-200 pb-5">
-                    <p className="text-sm text-stone-700">
-                      This wizard is your shortcut. It is not a replacement for
-                      the official HOME 80 packet.
-                    </p>
-                    <button
-                      onClick={goToBuyerInfo}
-                      className="rounded-full border border-emerald-300 bg-emerald-50 px-5 py-2 text-sm font-semibold text-emerald-800 hover:bg-emerald-100"
-                    >
-                      Start here
-                    </button>
-                  </div>
+                  <div className="flex justify-end border-b border-stone-200 pb-5">
+  <button
+    onClick={goToBuyerInfo}
+    className="rounded-full border border-emerald-300 bg-emerald-50 px-5 py-2 text-sm font-semibold text-emerald-800 hover:bg-emerald-100"
+  >
+    Start here
+  </button>
+</div>
 
                   <div className="mt-6 grid gap-4 md:grid-cols-3">
                     {[
