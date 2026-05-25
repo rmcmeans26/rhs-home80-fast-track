@@ -425,38 +425,39 @@ export default function RHSHOME80FastTrackWizard() {
   };
 
   const submitToGoogleSheet = async () => {
-    const payload = {
-      fullName: form.fullName,
-      phone: form.phone,
-      email: form.email,
-      householdSize: form.householdSize,
-      preferredArea: form.preferredArea,
-      readiness: form.readiness,
-      documents: form.documents,
-      progress: form.progress,
-      lenderName: form.lenderName,
-      loanOfficer: form.loanOfficer,
-      lenderPhone: form.lenderPhone,
-      lenderEmail: form.lenderEmail,
-    };
-
-    try {
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      setSubmitNotice("Submitted to RHS successfully!");
-      setSubmitted(true);
-      setCurrentStep(5);
-    } catch (error) {
-      console.error(error);
-      setSubmitNotice("Submission failed. Please try again.");
-    }
+  const payload = {
+    fullName: form.fullName,
+    phone: form.phone,
+    email: form.email,
+    householdSize: form.householdSize,
+    preferredArea: form.preferredArea,
+    readiness: form.readiness,
+    documents: form.documents,
+    progress: form.progress,
+    lenderName: form.lenderName,
+    loanOfficer: form.loanOfficer,
+    lenderPhone: form.lenderPhone,
+    lenderEmail: form.lenderEmail,
   };
+
+  try {
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    setSubmitNotice("Submitted to RHS successfully!");
+    setSubmitted(true);
+    setCurrentStep(5);
+  } catch (error) {
+    console.error(error);
+    setSubmitNotice("Submission failed. Please contact RHS directly.");
+  }
+};
 
   const handleSubmit = async () => {
     const valid = [1, 2, 3, 4].every((s) => validateStep(s));
